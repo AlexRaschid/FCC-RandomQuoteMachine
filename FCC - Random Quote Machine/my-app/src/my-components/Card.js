@@ -2,7 +2,6 @@ import React from 'react';
 
 export class Card extends React.Component{
     
-
     constructor(props){
         super(props);
         this.state = {
@@ -19,40 +18,32 @@ export class Card extends React.Component{
                 //Returns Jokes and returns all clean jokes (all filters = false)
                 console.log(data.jokes);
                 let cleanJokes = data.jokes.map(objNum => {
-                    
-                    /*TODO: data.jokes is an obj that not only has the joke key, 
-                            but also has a flag key on what type of joke it is.
-                            Create Logic to filter out Jokes that have a full 
-                            filter of false (ie the joke is good)
-                    */
+                    //console.log(Object.values(objNum.flags));
+                    //console.log(objNum);
+                    //console.log(Object.values(objNum.flags));
 
-                    // let currentJokeClean = Object.values(objNum.flags).filter(value => {
-                    //     return value === true ? false : true;
-                    // });
-                    //console.log("Clean Joke?: " + currentJokeClean);
+                    //objNum.flags is an array of boolean values. I want the jokes
+                    //that have ALL boolean values of false
+                    let isCurrentJokeClean = Object.values(objNum.flags).every(value => {
+                        console.log("value: " + value);
+                        return value === true ? false : true;
+                    });
                     
-                    //console.log(objNum.joke);
-                    //console.log(flagArr);
-                    //We want to filter out any true flags- theyre what we DONT want
-                    
-                    
-                    
-                    // for(let i = 0; i < flagArr.length; i++){
-                    //     switch(flagArr[i]){
-                    //         case true:
-                    //             return []
-                    //         default:
-                    //             break;
-                    //     }
-                    // }
-                });
+                    switch(isCurrentJokeClean){
+                        case true:
+                            return objNum.joke;
+                    }
 
-                console.log(cleanJokes);
+                    //filter(Boolean) gets rid of any falsy values ie undefined
+                }).filter(Boolean);
+
+                //console.log(cleanJokes);
                 
 
-                // this.setState({
-                //     jokes: data.jokes.map()
-                // });
+                this.setState({
+                    jokes: [...cleanJokes]
+                });
+                //console.log(this.state.jokes);
             });
             
     }
@@ -66,7 +57,7 @@ export class Card extends React.Component{
                 
                     <div className="card col-md-8 mx-auto">
                         <div className="card-body">
-                            <p>{console.log("Poop")}</p>
+                            <p>{console.log(this.state.jokes)}</p>
                             <p>Author here</p>
                         </div>
                         <div className="row">
