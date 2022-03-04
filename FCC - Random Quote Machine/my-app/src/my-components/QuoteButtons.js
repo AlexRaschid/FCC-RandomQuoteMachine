@@ -9,9 +9,10 @@ export default class QuoteButtons extends React.Component{
     render(){
         return(
             <div>
-                <button type="button" className="col-2 btn btn-primary">Button 1</button>
-                <button href="#" className="col-2 btn btn-primary">Button 2</button>
-                <button href="#" className="col-2 float-right btn btn-primary">Button 3</button>
+                <a id="tweet-quote" className="col-2 btn btn-primary">
+                    <i className="fa-brands fa-twitter" />        
+                </a>
+                <a id="new-quote" href="#" className="col-3 float-right btn btn-primary">New Joke</a>
             </div>
         );
         
