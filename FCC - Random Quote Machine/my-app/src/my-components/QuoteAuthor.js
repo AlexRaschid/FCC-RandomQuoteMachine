@@ -8,9 +8,9 @@ export default class QuoteAuthor extends React.Component{
 
     render(){
         return(
-            <div className="row">
-                <p>Author Here</p>    
-            </div>
+            <blockquote className="blockquote">
+                <p id="author" className="col-12 blockquote-footer float-right">xXx_PoopMaster_xXx</p>    
+            </blockquote>
         );
 
     }
