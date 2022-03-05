@@ -9,12 +9,12 @@ export default class QuoteText extends React.Component{
 
     render(){
         return(
-        <div className="row">
+        <div className="">
 
-            <p id="text" className="">
-                <i className="fas fa-quote-left" />
-                     {` ${this.props.jokes[0]} `} 
-                <i className="fas fa-quote-right" />
+            <p id="text" className="text-center">
+                <i className="quoteIcon fas fa-quote-left" />
+                     {` ${this.props.joke} `} 
+                <i className="quoteIcon fas fa-quote-right" />
             </p>    
         </div>
         );
