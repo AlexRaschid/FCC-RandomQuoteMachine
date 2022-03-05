@@ -10,4 +10,4 @@ Right now its possible distasteful, nsfw, or non-pc to be thrown into the mix ba
 
 
 I would also fix the quotes changing color slightly faster than the rest of the screen, with no transition. It irked me when I noticed it >:( . 
-I would also fix up some formatting when "&amp" appears. Also that tweeting doesnt actually work, I dont use twitter so I just did it to fulfill the assignment need.
+I would also fix up some formatting when "&amp" appears. Also that tweeting doesnt actually work I just did it to fulfill the assignment need.
