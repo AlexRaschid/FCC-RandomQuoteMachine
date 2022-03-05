@@ -8,52 +8,72 @@ export class Card extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            jokes: []
+            joke: "",
+            backgroundColor: ""
         }
 
-        this.generateQuotes.bind(this);
-        this.fetchQuotes.bind(this);
+        this.generateQuote = this.generateQuote.bind(this);
+        this.updateBackground = this.updateBackground.bind(this);
     }
 
     componentDidMount(){
-        this.generateQuotes();
+        this.generateQuote();
+        this.updateBackground();
 
             
     }
-    
-    fetchQuotes(){
-        return this.state.jokes
+
+    updateBackground(){
+        let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+        document.body.style.transition = "all 2s"; 
+        
+        //I hate styling
+        document.getElementById('tweet-quote').style.backgroundColor = randomColor;
+        document.getElementById('tweet-quote').style.borderColor = randomColor;
+        document.getElementById('tweet-quote').style.transition = "all 2s";
+
+        document.getElementById('new-quote').style.backgroundColor = randomColor;
+        document.getElementById('new-quote').style.borderColor = randomColor;
+        document.getElementById('new-quote').style.transition = "all 2s";
+        
+        //Why do the quotes not transition color the same?
+        document.getElementsByClassName('quoteIcon')[0].style.color = randomColor;
+        document.getElementsByClassName('quoteIcon')[0].transition = "all 2s"; 
+            document.getElementById('text').style.color = randomColor;
+            document.getElementById('text').style.transition = "all 2s"; 
+        document.getElementsByClassName('quoteIcon')[1].style.color = randomColor;
+        document.getElementsByClassName('quoteIcon')[1].transition = "all 2s"; 
+
+        document.getElementById('author').style.color = randomColor;
+        document.getElementById('author').style.transition = "all 2s"; 
     }
 
     
 
-    generateQuotes(){
+    generateQuote(){
         //https://dad-jokes.p.rapidapi.com/random/joke?count=2
         //Returns a promise
-        fetch('https://v2.jokeapi.dev/joke/Dark?type=single&amount=10')
-        //Response Object-.json returns another promise
+        fetch("https://random-stuff-api.p.rapidapi.com/joke?tag=IT&blacklist=christian%2C%20God%2C%20political%2C%20racist%2C%20Black%2C%20gay%2C%20men%2C%20women", {
+            "method": "GET",
+            "headers": {
+                "authorization": "3Df7JbqoBvTu",
+                "x-rapidapi-host": "random-stuff-api.p.rapidapi.com",
+                "x-rapidapi-key": "450c0aa454msheac48f88c4ff1fbp15d093jsn4cc347fe6f48"
+            }
+        })
         .then(response => response.json())
         .then(data => {
-            //Returns Jokes and returns all clean jokes (all filters = false)
-            let cleanJokes = data.jokes.map(objNum => {
-                //objNum.flags is an array of boolean values. I want the jokes
-                //that have ALL boolean values of false
-                let isCurrentJokeClean = Object.values(objNum.flags).every(value => {
-                    return value === true ? false : true;
-                });
+            let joke = data.joke
 
-                switch(isCurrentJokeClean){
-                    case true:
-                        return objNum.joke;
-                }
-                //filter(Boolean) gets rid of any falsy values ie undefined
-            }).filter(Boolean);
-
-            
             this.setState({
-                jokes: [...cleanJokes]
+                joke: joke 
             });
-        });
+
+        }); 
+            
+             
+        
     }
     
     render(){
@@ -63,10 +83,10 @@ export class Card extends React.Component{
                     
                     <div id="quote-box" className="card col-md-8 mx-auto ">
                         <div className="card-body">
-                            <QuoteText jokes={this.state.jokes}/>
-                            {console.log(this.fetchQuotes())}
+                            <QuoteText joke={this.state.joke}/>
+                            {console.log(this.updateBackground)}
                             <QuoteAuthor />
-                            <QuoteButtons generateQuotes={this.generateQuotes} fetchQuotes={this.fetchQuotes()}/>
+                            <QuoteButtons generateQuote={this.generateQuote} updateBackground={this.updateBackground}/>
                         </div>
                     </div>
           </div>
